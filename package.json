@@ -1,0 +1,22 @@
+{
+  "name": "PokerNowToPokerStars",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "npm run build && npm run copy-files && electron build/index.js",
+    "build": "./node_modules/.bin/tsc",
+    "copy-files": "cp ./src/index.html ./build/index.html"
+  },
+  "dependencies": {
+    "axios": "^0.27.2",
+    "crypto": "^1.0.1",
+    "menubar": "^9.2.1",
+    "socket.io-client": "^2.4.0",
+    "typescript": "^4.7.4"
+  },
+  "devDependencies": {
+    "@types/electron": "^1.6.10",
+    "electron": "^19.0.8"
+  }
+}
