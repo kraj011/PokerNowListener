@@ -24,6 +24,9 @@ class Hand {
     smallBlindSize: number = 0;
     bigBlindSize: number = 0;
 
+    hasAnte: boolean = false;
+    anteSize: number = 0.0;
+
     printedShowdown: boolean = false;
 
     pokerStarsDescription = (heroName: string, multiplier: number, tableName: string) => {
@@ -47,6 +50,15 @@ class Hand {
         let currentBet = this.bigBlindSize * multiplier;
         let totalPotSize = 0.0;
         let streetDescription = "before Flop";
+
+        //first detect if game is anted
+        this.lines.forEach((line) => {
+            if(line.includes("posts an ante")) {
+                this.hasAnte = true;
+                let size = parseFloat(line.split(" ").at(-1)) ?? 0.0;
+                this.anteSize = size;
+            }
+        })
 
         this.lines.forEach((line) => {
             if(line.includes("starting hand")) {
@@ -86,6 +98,18 @@ class Hand {
                     lines.push(`Seat ${seatNumberInt}: ${nameIdArray[0] ?? "error"} (${stackSizeFormatted} in chips)`);
 
                 })
+
+                if(this.hasAnte) {
+                    playersWithStacks.forEach((playerWithStack) => {
+                        let seatNumber = playerWithStack.split(" ")[0];
+                        let playerWithStackNoSeat = playerWithStack.replace(`${seatNumber} `, "");
+                        let nameIdArray = playerWithStackNoSeat.split("\" ")[0].replace("\"", "").split(" @ ");    
+                        lines.push(`${nameIdArray[0] ?? "error"}: posts the ante ${this.anteSize}`);
+                    })
+                }
+
+
+
                 lines.push(`${this.smallBlind.name ?? "Unknown"}: posts small blind ${(this.smallBlindSize*multiplier).toFixed(2)}`);
 
                 this.bigBlind.forEach((bb) => {

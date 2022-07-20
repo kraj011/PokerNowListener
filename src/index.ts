@@ -83,5 +83,16 @@ mb.on("after-create-window", () => {
 //     console.log(err)
 // })
 
+getLog("pglFMfeB4v6HT4bvxB5-1OPY2", "kK50iJDcE-CdM-UhEYuQH6y-M3Q6BHJXBJUYDAtEMf3NMmJ6OG", "165820973581100", "165820977548400").then((rows) => {
+    console.log(rows)
+    let game = new Game(rows);
+    console.log("Writing table hand id")
+    let pokerStarsLines = game.hands[0].pokerStarsDescription("Dynx", 1.0, "pglFMfeB4v6HT4bvxB5-1OPY2");
+    let output = pokerStarsLines.join("\n");
+    console.log(output)
+    
+}).catch((err) => {
+    console.log(err)
+})
 // getLog()
 export {};
