@@ -10,7 +10,7 @@ export const getLog = (gameId: string, cookie: string, startTime: string, endTim
         let url = `https://www.pokernow.club/games/${gameId}/log?after_at=${startTime}&before_at=${endTime}`
         let logsResponse = await axios.get(url, {
             headers: {
-                "Cookie": `npt=${cookie};`
+                "Cookie": `npt=${cookie};apt=or2sk6taxkcb6yojk45um16ck6g2bblukk2tjboi0jstv;`
             }
         }).catch((err) => {
             // alert it here!
@@ -46,8 +46,7 @@ export const getLog = (gameId: string, cookie: string, startTime: string, endTim
             }
 
             if(msg.includes("--starting hand")) {
-                // find way to get hand ID
-                tableHandId = "???";
+                tableHandId = msg.replace("-- starting hand #", "").split(" ")[0];
                 foundStarting = true;
             }
 
@@ -119,5 +118,11 @@ export const emojiFlip = (card: EmojiCard) => {
     }
 }
 
-
-
+export const getCardKeyFromValue = (card) => {
+    if(!card) {
+        return "error";
+    }
+    return card.toString();
+    // let indexOfCard = Object.values(Card).indexOf(card);
+    // return Object.keys(Card)[indexOfCard === -1 ? 0 : indexOfCard];
+}

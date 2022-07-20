@@ -6,6 +6,7 @@ import Seat from "./Seat";
 import { emojiFlip } from "../utils";
 import EmojiCard from "./EmojiCard";
 import Card from "./Card";
+const moment = require("moment")
 
 
 class Game {
@@ -18,14 +19,12 @@ class Game {
         rows.reverse().forEach((row) => {
             this.parseLine(row);
         })
-        console.log(`SB: ${this.currentHand.smallBlind.name} and BB: ${this.currentHand.bigBlind[0].name}`)
     }
 
 
     
     parseLine({entry, at, order}: Log) {
-        let date = Date.parse(at)/1000;
-
+        let date = moment(at).valueOf();
 
         if(entry.startsWith("-- starting hand")) {
             let startingHandComponents = entry.split(" (dealer: \"");
@@ -103,7 +102,6 @@ class Game {
         } else if (entry.startsWith("Your hand is ")) {
             // line 116
             this.currentHand.hole = entry.replace("Your hand is ", "").split(", ").map((val) => emojiFlip(val as EmojiCard ?? EmojiCard.error));
-
         } else if (entry.startsWith("Flop")) {
             let line = entry.slice(entry.indexOf("[")+1, entry.indexOf("]"));
             this.currentHand.flop = line.replace("Flop: ", "").split(", ").map((val) => emojiFlip(val as EmojiCard ?? EmojiCard.error));

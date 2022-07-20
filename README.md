@@ -23,3 +23,4 @@ There are several modifications I hope to make for the future of this app. Prima
 -   [ ] Parse websockets instead of using game logs
 -   [ ] Cleaner UI
 -   [ ] PokerTracker HUD support
+-   [ ] Ante support

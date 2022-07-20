@@ -25,16 +25,13 @@ ipcMain.on("connect", (e, gameLink, cookie, name) => {
     console.log('Trying to connect to ', gameLink)
     // wss://www.pokernow.club/socket.io/?gameID=pglcjUbhEU6OO_5yaju3sZrEk&firstConnection=true&layout=d&EIO=3&transport=websocket
     const socket = io("wss://www.pokernow.club", {
-        // reconnectionDelayMax: 10000,
         query: {
             "gameID": gameId
         },
         extraHeaders: {
             "Cookie": `npt=${cookie};`
         },
-        // cookieField: "",
         transports: ['websocket'],
-        // jsonp: false,
     });
     
 
@@ -74,9 +71,13 @@ mb.on("after-create-window", () => {
     mb.window.openDevTools()
 })
 
-// getLog("pglFMfeB4v6HT4bvxB5-1OPY2", "kK50iJDcE-CdM-UhEYuQH6y-M3Q6BHJXBJUYDAtEMf3NMmJ6OG", "165820973581100", "165820977548400").then((rows) => {
+// getLog("pgl0ijxmlFn5xgBZGdJtGE4Es", "kK50iJDcE-CdM-UhEYuQH6y-M3Q6BHJXBJUYDAtEMf3NMmJ6OG", "165835805857000", "165835811407200").then((rows) => {
+//     console.log(rows)
 //     let game = new Game(rows);
-//     console.log(game.hands[0])
+//     console.log("Writing table hand id")
+//     let pokerStarsLines = game.hands[0].pokerStarsDescription("David", 1.0, "pgl0ijxmlFn5xgBZGdJtGE4Es");
+//     let output = pokerStarsLines.join("\n");
+//     console.log(output)
     
 // }).catch((err) => {
 //     console.log(err)
